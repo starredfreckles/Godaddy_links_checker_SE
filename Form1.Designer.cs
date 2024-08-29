@@ -1,4 +1,6 @@
-﻿namespace Godaddy_links_checker_SE
+﻿using System.Resources;
+
+namespace Godaddy_links_checker_SE
 {
     partial class Form1
     {
@@ -20,72 +22,80 @@
 
         private void InitializeComponent()
         {
-            this.AvailableResultsTextBox = new System.Windows.Forms.TextBox();
-            this.UnavailableResultsTextBox = new System.Windows.Forms.TextBox();
-            this.CheckUrlsButton = new System.Windows.Forms.Button();
-            this.UrlTextBox = new System.Windows.Forms.TextBox();
-            this.UrlLabel = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            AvailableResultsTextBox = new TextBox();
+            UnavailableResultsTextBox = new TextBox();
+            CheckUrlsButton = new Button();
+            UrlTextBox = new TextBox();
+            UrlLabel = new Label();
+            SuspendLayout();
             // 
             // AvailableResultsTextBox
             // 
-            this.AvailableResultsTextBox.Location = new System.Drawing.Point(12, 41);
-            this.AvailableResultsTextBox.Multiline = true;
-            this.AvailableResultsTextBox.Name = "AvailableResultsTextBox";
-            this.AvailableResultsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AvailableResultsTextBox.Size = new System.Drawing.Size(300, 400);
-            this.AvailableResultsTextBox.TabIndex = 0;
+            AvailableResultsTextBox.Location = new Point(14, 47);
+            AvailableResultsTextBox.Margin = new Padding(4, 3, 4, 3);
+            AvailableResultsTextBox.Multiline = true;
+            AvailableResultsTextBox.Name = "AvailableResultsTextBox";
+            AvailableResultsTextBox.ScrollBars = ScrollBars.Vertical;
+            AvailableResultsTextBox.Size = new Size(349, 461);
+            AvailableResultsTextBox.TabIndex = 0;
             // 
             // UnavailableResultsTextBox
             // 
-            this.UnavailableResultsTextBox.Location = new System.Drawing.Point(318, 41);
-            this.UnavailableResultsTextBox.Multiline = true;
-            this.UnavailableResultsTextBox.Name = "UnavailableResultsTextBox";
-            this.UnavailableResultsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.UnavailableResultsTextBox.Size = new System.Drawing.Size(300, 400);
-            this.UnavailableResultsTextBox.TabIndex = 1;
+            UnavailableResultsTextBox.Location = new Point(371, 47);
+            UnavailableResultsTextBox.Margin = new Padding(4, 3, 4, 3);
+            UnavailableResultsTextBox.Multiline = true;
+            UnavailableResultsTextBox.Name = "UnavailableResultsTextBox";
+            UnavailableResultsTextBox.ScrollBars = ScrollBars.Vertical;
+            UnavailableResultsTextBox.Size = new Size(349, 461);
+            UnavailableResultsTextBox.TabIndex = 1;
             // 
             // CheckUrlsButton
             // 
-            this.CheckUrlsButton.Location = new System.Drawing.Point(12, 447);
-            this.CheckUrlsButton.Name = "CheckUrlsButton";
-            this.CheckUrlsButton.Size = new System.Drawing.Size(606, 23);
-            this.CheckUrlsButton.TabIndex = 2;
-            this.CheckUrlsButton.Text = "Check URLs";
-            this.CheckUrlsButton.UseVisualStyleBackColor = true;
-            this.CheckUrlsButton.Click += new System.EventHandler(this.CheckUrlsButton_Click);
+            CheckUrlsButton.Location = new Point(14, 516);
+            CheckUrlsButton.Margin = new Padding(4, 3, 4, 3);
+            CheckUrlsButton.Name = "CheckUrlsButton";
+            CheckUrlsButton.Size = new Size(707, 27);
+            CheckUrlsButton.TabIndex = 2;
+            CheckUrlsButton.Text = "Check URLs";
+            CheckUrlsButton.UseVisualStyleBackColor = true;
+            CheckUrlsButton.Click += CheckUrlsButton_Click;
             // 
             // UrlTextBox
             // 
-            this.UrlTextBox.Location = new System.Drawing.Point(50, 12);
-            this.UrlTextBox.Name = "UrlTextBox";
-            this.UrlTextBox.Size = new System.Drawing.Size(568, 20);
-            this.UrlTextBox.TabIndex = 3;
-            this.UrlTextBox.Text = "https://www.godaddy.com/pricing";
+            UrlTextBox.Location = new Point(58, 14);
+            UrlTextBox.Margin = new Padding(4, 3, 4, 3);
+            UrlTextBox.Name = "UrlTextBox";
+            UrlTextBox.Size = new Size(662, 23);
+            UrlTextBox.TabIndex = 3;
+            UrlTextBox.Text = "https://www.godaddy.com/pricing";
             // 
             // UrlLabel
             // 
-            this.UrlLabel.AutoSize = true;
-            this.UrlLabel.Location = new System.Drawing.Point(12, 15);
-            this.UrlLabel.Name = "UrlLabel";
-            this.UrlLabel.Size = new System.Drawing.Size(32, 13);
-            this.UrlLabel.TabIndex = 4;
-            this.UrlLabel.Text = "URL:";
+            UrlLabel.AutoSize = true;
+            UrlLabel.Location = new Point(14, 17);
+            UrlLabel.Margin = new Padding(4, 0, 4, 0);
+            UrlLabel.Name = "UrlLabel";
+            UrlLabel.Size = new Size(31, 15);
+            UrlLabel.TabIndex = 4;
+            UrlLabel.Text = "URL:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 482);
-            this.Controls.Add(this.UrlLabel);
-            this.Controls.Add(this.UrlTextBox);
-            this.Controls.Add(this.CheckUrlsButton);
-            this.Controls.Add(this.UnavailableResultsTextBox);
-            this.Controls.Add(this.AvailableResultsTextBox);
-            this.Name = "Form1";
-            this.Text = "GoDaddy Links Checker";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(735, 556);
+            Controls.Add(UrlLabel);
+            Controls.Add(UrlTextBox);
+            Controls.Add(CheckUrlsButton);
+            Controls.Add(UnavailableResultsTextBox);
+            Controls.Add(AvailableResultsTextBox);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "Form1";
+            Text = "GoDaddy Feature Availability Tool";
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }

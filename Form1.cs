@@ -93,7 +93,9 @@ namespace Godaddy_links_checker_SE
             ChromeOptions options = new ChromeOptions();
             // Eliminar la línea de headless para ver la ejecución en tiempo real
             // options.AddArgument("--headless");
-            IWebDriver driver = new ChromeDriver(options);
+            var driverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+            var driverService = ChromeDriverService.CreateDefaultService(driverPath);
+            IWebDriver driver = new ChromeDriver(driverService, options);
 
             try
             {
