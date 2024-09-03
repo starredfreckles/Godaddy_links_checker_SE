@@ -74,14 +74,14 @@ namespace Godaddy_links_checker_SE
 
         private async void CheckUrlsButton_Click(object sender, EventArgs e)
         {
-            string baseUrl = UrlTextBox.Text.Trim(); // Elimina espacios en blanco alrededor
+            string baseUrl = UrlTextBox.Text.Trim(); // Delete blank spaces from URL
             if (string.IsNullOrWhiteSpace(baseUrl))
             {
-                MessageBox.Show("Por favor, introduce una URL válida.");
+                MessageBox.Show("Please enter a valid URL");
                 return;
             }
 
-            Console.WriteLine($"URL proporcionada: {baseUrl}"); // Para verificar que se está obteniendo la URL correcta
+            Console.WriteLine($"Provided URL: {baseUrl}"); // To verify that the URL is correct
             var (availableResults, unavailableResults) = await CheckUrlsInMarkets(baseUrl);
             DisplayResults(availableResults, unavailableResults);
         }
@@ -91,7 +91,7 @@ namespace Godaddy_links_checker_SE
             List<string> availableResults = new List<string>();
             List<string> unavailableResults = new List<string>();
             ChromeOptions options = new ChromeOptions();
-            // Eliminar la línea de headless para ver la ejecución en tiempo real
+            // Delete headless line to see real-time execution
             // options.AddArgument("--headless");
             var driverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
             var driverService = ChromeDriverService.CreateDefaultService(driverPath);
@@ -101,36 +101,36 @@ namespace Godaddy_links_checker_SE
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-                // Navegar primero al mercado en-US
+                // Navigate to en-US market first
                 var defaultMarket = godaddyMarkets.Find(m => m.market == "en-US");
                 if (defaultMarket != default)
                 {
                     try
                     {
-                        Console.WriteLine($"Navegando a: {baseUrl}");
+                        Console.WriteLine($"Testing: {baseUrl}");
                         driver.Navigate().GoToUrl(baseUrl);
-                        await Task.Delay(3000); // Esperar a que se cargue la página
-                        Console.WriteLine($"Página cargada: {driver.Url}"); // Verifica la URL actual después de cargar
+                        await Task.Delay(3000); // Timer to wait for the page to load
+                        Console.WriteLine($"Loaded URL: {driver.Url}"); // Verify the URL after loading
 
-                        Console.WriteLine($"Navegando al mercado predeterminado: {defaultMarket.market}");
+                        Console.WriteLine($"Setting default market: {defaultMarket.market}");
 
                         var marketSelector = wait.Until(d => d.FindElement(By.XPath("//*[@id='currentMarket']")));
                         ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", marketSelector);
                         wait.Until(ExpectedConditions.ElementToBeClickable(marketSelector));
                         marketSelector.Click();
-                        await Task.Delay(3000); // Esperar a que se cargue la lista de mercados
-                        Console.WriteLine("Selector de mercado abierto");
+                        await Task.Delay(3000); // Timer to wait for the market list to load
+                        Console.WriteLine("Market Selector Open");
 
                         var marketSelector2 = wait.Until(d => d.FindElement(By.XPath(defaultMarket.language)));
                         ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", marketSelector2);
                         wait.Until(ExpectedConditions.ElementToBeClickable(marketSelector2));
                         marketSelector2.Click();
-                        await Task.Delay(3000); // Esperar a que se cargue la página del mercado
-                        Console.WriteLine($"Mercado predeterminado seleccionado: {defaultMarket.market}");
+                        await Task.Delay(3000); // Timer to wait for the market page to load
+                        Console.WriteLine($"Default Market Selected: {defaultMarket.market}");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error al navegar al mercado predeterminado {defaultMarket.market}: {ex.Message}");
+                        Console.WriteLine($"Error navigating to default market {defaultMarket.market}: {ex.Message}");
                     }
                 }
 
@@ -138,26 +138,26 @@ namespace Godaddy_links_checker_SE
                 {
                     try
                     {
-                        // Volver a la URL base antes de cada iteración
+                        // Go back to the base URL before each iteration
                         driver.Navigate().GoToUrl(baseUrl);
-                        await Task.Delay(3000); // Esperar a que se cargue la página
-                        Console.WriteLine($"Página principal recargada: {baseUrl}");
+                        await Task.Delay(3000); // Timer to wait for the page to load
+                        Console.WriteLine($"Base URL reloaded: {baseUrl}");
 
-                        Console.WriteLine($"Procesando mercado: {market.market}");
+                        Console.WriteLine($"Procesing market: {market.market}");
 
                         // Establecer el mercado deseado
                         var marketSelector = wait.Until(d => d.FindElement(By.XPath("//*[@id='currentMarket']")));
                         ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", marketSelector);
                         wait.Until(ExpectedConditions.ElementToBeClickable(marketSelector));
                         marketSelector.Click();
-                        await Task.Delay(3000); // Esperar a que se cargue la lista de mercados
-                        Console.WriteLine("Selector de mercado abierto");
+                        await Task.Delay(3000); // Timer to wait for the market list to load
+                        Console.WriteLine("Market Selector Open");
 
                         if (market.market == "zh-HK")
                         {
                             driver.Navigate().GoToUrl("https://hk.godaddy.com/");
-                            await Task.Delay(3000); // Esperar a que se cargue la página específica
-                            Console.WriteLine("Navegando a la URL específica para zh-HK");
+                            await Task.Delay(3000); // Timer to wait for the page to load
+                            Console.WriteLine("Navigating to zh-HK");
                         }
                         else
                         {
@@ -165,37 +165,37 @@ namespace Godaddy_links_checker_SE
                             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", marketSelector2);
                             wait.Until(ExpectedConditions.ElementToBeClickable(marketSelector2));
                             marketSelector2.Click();
-                            await Task.Delay(3000); // Esperar a que se cargue la página del mercado
-                            Console.WriteLine($"Mercado seleccionado: {market.market}");
+                            await Task.Delay(3000); // Timer to wait for the market page to load
+                            Console.WriteLine($"Market selected: {market.market}");
                         }
 
-                        // Volver a navegar a la URL base después de seleccionar el mercado
+                        // Go back to the base URL after selecting the market
                         driver.Navigate().GoToUrl(baseUrl);
-                        await Task.Delay(3000); // Esperar a que se cargue la página en el contexto del mercado seleccionado
+                        await Task.Delay(3000); // Timer to wait for the page to load for the selected market
                         Console.WriteLine($"Página recargada en el contexto del mercado seleccionado: {market.market}");
 
-                        // Verificar si la página se carga correctamente
+                        // Verify that the page loads correctly
                         var bodyElement = driver.FindElement(By.TagName("body"));
                         var dataTrackName = bodyElement.GetAttribute("data-track-name");
 
                         if (driver.Title.Contains("404") || (dataTrackName != null && dataTrackName.Contains("homepage")))
                         {
-                            unavailableResults.Add($"{market.market} - No Disponible");
-                            Console.WriteLine($"{market.market} - No Disponible");
+                            unavailableResults.Add($"{market.market}");
+                            Console.WriteLine($"{market.market}");
                         }
                         else
                         {
-                            availableResults.Add($"{market.market} - Disponible");
-                            Console.WriteLine($"{market.market} - Disponible");
+                            availableResults.Add($"{market.market}");
+                            Console.WriteLine($"{market.market}");
                         }
 
-                        // Actualizar los resultados en tiempo real
+                        // Update results in real time
                         DisplayResults(availableResults, unavailableResults);
                     }
                     catch (Exception ex)
                     {
-                        unavailableResults.Add($"Error al procesar el mercado {market.market}: {ex.Message}");
-                        Console.WriteLine($"Error al procesar el mercado {market.market}: {ex.Message}");
+                        unavailableResults.Add($"Error processing the market {market.market}: {ex.Message}");
+                        Console.WriteLine($"Error processing the market {market.market}: {ex.Message}");
                         continue;
                     }
                 }
@@ -210,7 +210,7 @@ namespace Godaddy_links_checker_SE
 
         private void DisplayResults(List<string> availableResults, List<string> unavailableResults)
         {
-            // Asegúrate de que las actualizaciones de la interfaz se hagan en el hilo principal
+            // Make sure interface updates are done on the main thread
             if (InvokeRequired)
             {
                 Invoke(new Action(() => DisplayResults(availableResults, unavailableResults)));
@@ -219,16 +219,25 @@ namespace Godaddy_links_checker_SE
 
             AvailableResultsTextBox.Clear();
             UnavailableResultsTextBox.Clear();
+            AvailMarketList.Clear();
+            NonAvailMarketList.Clear();
 
             foreach (string result in availableResults)
             {
                 AvailableResultsTextBox.AppendText(result + Environment.NewLine);
+                AvailMarketList.AppendText(result + ",");
             }
 
             foreach (string result in unavailableResults)
             {
                 UnavailableResultsTextBox.AppendText(result + Environment.NewLine);
+                NonAvailMarketList.AppendText(result + ",");
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

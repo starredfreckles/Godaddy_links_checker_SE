@@ -8,11 +8,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>GoDaddy-Logo.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="drivers\chromedriver.exe" />
+	<None Update="chromedriver.exe">
+	      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
   </ItemGroup>
 
   <ItemGroup>
@@ -25,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="drivers\chromedriver.exe">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    <Resource Include="chromedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
